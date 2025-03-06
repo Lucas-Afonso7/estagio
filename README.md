@@ -180,6 +180,19 @@ específico, mantendo as alterações no staging.
 
 **Commitar esse arquivo em Markdown**
 
+**Terceira aula 06/03/2025**      
+
+Descrever cada estrutura de dados:
+- **Lista**-E uma coleçao ordenada que pode conter itens de diferentes tipos. As listas permitem acesso, remoçao e adiçao de elementos de qualquer posiçao.
+- **pilha**-A pilha é uma estrutura que segue o princípio LIFO (Last In, First Out) o último elemento a ser adicionado é o primeiro a ser removido. Os elementos são sempre adicionados e retirados do topo da pilha.
+- **fila**-A fila segue o princípio FIFO (First In, First Out)o primeiro elemento a entrar é o primeiro a sair. Os elementos são adicionados no final da fila e removidos do início.
+
+- **O que é NodeJS?**-É um ambiente de execução JavaScript que permite executar código JavaScript no lado do servidor(permitindo o uso da linguagem no back-end), em vez de apenas no navegador. Possui também vários tipos de pacotes e bibliotecas disponíveis através do npm, facilitando o desenvolvimento de aplicações complexas.
+- **Installar o NodeJS**-Usei os comandos, sudo apt update, sudo apt-get install nodejs e sudo apt install npm, para instalar o npm.
+- **Fazer um hello world**-Iniciei criando um novo diretório, dentro da pasta estagio, com o nome "hello-world" utilizando o comando mkdir hello-world. Em seguida, acessei este diretório com o comando cd hello-world. Criei um arquivo chamado projeto.js por meio do comando touch projeto.js. Após a criação do arquivo, abri-o utilizando o Visual Studio Code. Dentro do ambiente, inseri o código: console.log('Hello, World');
+
+- **O que é NPM**-O NPM (Node Package Manager) é uma ferramenta do Node.js para o gerenciamento de pacotes, podendo ter acesso a inúmeras bibliotecas e frameworks JavaScript.
+
 ![](media/image1.png){width="6.5in" height="7.736111111111111in"}
 
 ![](media/image2.png){width="6.458333333333333in" height="5.875in"}
