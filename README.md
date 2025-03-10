@@ -406,5 +406,3 @@ FROM users
 RIGHT JOIN orders ON users.id = orders.user_id;
 ```
 
----
->>>>>>> 71cfbe8 (Configuração inicial do banco de dados e scripts SQL)
