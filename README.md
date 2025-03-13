@@ -1,4 +1,4 @@
-# Níveis de Compreensão de Estudo
+'# Níveis de Compreensão de Estudo
 
 1. **Saber que existe**: o que é basicamente, prós e contras;
 2. **Saber usar**;
@@ -224,8 +224,8 @@ Isso retornou a mensagem:
 ```sh
 Servidor Express está rodando!
 ```
-<<<<<<< HEAD
-=======
+
+
 ---
 # Quinta aula - 10/03/2025
 ---
@@ -406,3 +406,6 @@ FROM users
 RIGHT JOIN orders ON users.id = orders.user_id;
 ```
 
+---
+
+# Sexta aula - 11/03/2025
