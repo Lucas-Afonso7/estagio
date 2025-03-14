@@ -335,255 +335,137 @@ SELECT * FROM users;
 ## Comandos Básicos do SQL
 
 ### INSERT (Inserir Dados)
-Para adicionar um novo usuário à tabela:
-```sql
-INSERT INTO users (name, email, password) 
-VALUES ('Lucas', 'lucas@email.com', 'senha123');
-```
+- pesquisar sobre o que é um genenciador de pacotes
+ Gerenciador de pacotes, sao repositorios de codigo aberto, ou seja, sao progamas que outras pessoas desenvolveram, e colocaram desponiveis para quem estiver com o mesmo poblema poder usar, assim deixando o desenvolvimento rapido. O gerenciador do node.js mais conhecido e o [NPM](https://www.npmjs.com/), mas tambem tem o yan, pnpm e bun.
 
-### SELECT (Consultar Dados)
-- Para ver todos os usuários cadastrados:
-  ```sql
-  SELECT * FROM users;
-  ```
-- Para buscar apenas nome e email dos usuários:
-  ```sql
-  SELECT name, email FROM users;
-  ```
-- Para encontrar um usuário específico pelo email:
-  ```sql
-  SELECT * FROM users WHERE email = 'lucas@email.com';
-  ```
-- Para ordenar os resultados por nome:
-  ```sql
-  SELECT * FROM users ORDER BY name ASC;
-  ```
+## Gerenciador de Pacotes
 
-### UPDATE (Atualizar Dados)
-Para atualizar um dado já existente:
-```sql
-UPDATE users 
-SET password = 'nova_senha'
-WHERE email = 'lucas@email.com';
-```
-**IMPORTANTE:** Sempre utilize `WHERE` para evitar atualizar todos os registros da tabela!
+Gerenciadores de pacotes são repositórios de código aberto, ou seja, são programas que outras pessoas desenvolveram e disponibilizaram para que outros possam utilizar, facilitando o desenvolvimento e tornando-o mais rápido. O gerenciador de pacotes mais conhecido do **Node.js** é o [NPM](https://www.npmjs.com/), mas também existem outros como **Yarn, PNPM e Bun**.
 
-### DELETE (Remover Dados)
-Para remover um usuário específico:
+---
+# 14/03/2024
+
+## O que são `package.json` e `package-lock.json`?
+
+### `package.json`
+
+É o arquivo onde o NPM armazena os nomes e versões dos pacotes instalados no projeto. As versões seguem um formato semântico composto por três números:
+
+- **Major Version**  `1.x.x` → Mudanças grandes e incompatíveis com versões anteriores.
+- **Minor Version**  `x.1.x` → Novas funcionalidades adicionadas sem quebrar compatibilidade.
+- **Patch Version**  `x.x.1` → Correções de bugs e melhorias de desempenho sem impacto na compatibilidade.
+
+### `package-lock.json`
+
+Esse arquivo define as versões exatas dos pacotes instalados, garantindo que ao rodar `npm install`, o mesmo conjunto de pacotes seja instalado, evitando inconsistências entre ambientes.
+
+---
+
+## Request Body e Request Params
+
+### **Request Body**
+
+O **corpo da requisição** (req.body) é utilizado quando se precisa enviar dados detalhados para o servidor. O cliente envia as informações para o servidor, que lê esses dados como um fluxo de bytes. No **Express.js**, o express.json() converte esses bytes em um objeto JavaScript.
+
+### **Request Params**
+
+Os **parâmetros da requisição** (req.params) são usados para buscar informações diretamente no banco de dados com base na URL. Exemplo:
+
+- **URL:** /users/123
+- O servidor extrai 123, que é o identificador único do usuário, e consulta o banco de dados.
+
+---
+
+
+## SQL Parameters e SQL Injection
+
+### **SQL Parameters**
+
+Forma segura de passar valores para uma consulta SQL utilizando **marcadores de posição**. Isso evita vulnerabilidades como **SQL Injection**.
+
+### **SQL Injection**
+
+Tipo de ataque onde um usuário mal-intencionado pode manipular consultas SQL para modificar ou excluir dados. Isso ocorre quando os dados do usuário não são devidamente validados antes de serem usados na consulta.
+
+
+
+Exemplo usando SQL Parameters:
+
 ```sql
-DELETE FROM users WHERE email = 'lucas@email.com';
-```
-Para apagar **todos** os usuários sem deletar a estrutura da tabela:
-```sql
-DELETE FROM users;
+SELECT * FROM users WHERE email = $1;
 ```
 
 ---
 
-## Joins (Junção de Tabelas)
 
-### INNER JOIN (Apenas Correspondências)
-Retorna apenas registros que possuem correspondência em ambas as tabelas.
-```sql
-SELECT users.name, users.email, orders.total, orders.created_at
-FROM users
-INNER JOIN orders ON users.id = orders.user_id;
-```
 
-### LEFT JOIN (Todos os Usuários + Pedidos Correspondentes)
-Retorna **todos os usuários**, mesmo os que **não fizeram pedidos**:
-```sql
-SELECT users.name, users.email, orders.total, orders.created_at
-FROM users
-LEFT JOIN orders ON users.id = orders.user_id;
-```
 
-### RIGHT JOIN (Todos os Pedidos + Usuários Correspondentes)
-Retorna **todos os pedidos**, mesmo sem usuário vinculado:
-```sql
-SELECT users.name, users.email, orders.total, orders.created_at
-FROM users
-RIGHT JOIN orders ON users.id = orders.user_id;
-```
+
+## String Interpolation
+
+A **interpolação de strings** permite inserir variáveis dentro de uma string de maneira mais intuitiva. Além disso, qualquer tipo de dado pode ser convertido em string automaticamente. ${}
+
 
 ---
 
-# Sexta aula - 11/03/2025
+## Testando as rotas do projeto com CURL
 
-# Instalação de Dependências
-No diretório do meu projeto, executei os seguintes comandos para instalar as dependências necessárias:
+### **Criar um usuário (POST /users)**
 
 ```bash
-npm init -y
-npm install express pg
+curl -X POST http://localhost:3000/users \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "João Silva",
+           "email": "joao@email.com",
+           "password": "senha123"
+         }'
+```
+
+### **Listar todos os usuários (GET /users)**
+
+```bash
+curl -X GET http://localhost:3000/users
+```
+
+### **Buscar um usuário pelo ID (GET /users/:id)**
+
+```bash
+curl -X GET http://localhost:3000/users/1
+```
+
+### **Atualizar um usuário (PUT /users/:id)**
+
+```bash
+curl -X PUT http://localhost:3000/users/1 \
+     -H "Content-Type: application/json" \
+     -d '{
+           "name": "João Atualizado",
+           "email": "joao.novo@email.com",
+           "password": "novaSenha456"
+         }'
+```
+
+### **Atualizar parcialmente um usuário (PATCH /users/:id)**
+
+```bash
+curl -X PATCH http://localhost:3000/users/1 \
+     -H "Content-Type: application/json" \
+     -d '{
+           "email": "email.atualizado@email.com"
+         }'
+```
+
+### **Deletar um usuário (DELETE /users/:id)**
+
+```bash
+curl -X DELETE http://localhost:3000/users/1
 ```
 
 ---
 
-## Criando o Servidor Express
-Criei um arquivo chamado `app.js` e adicionei o seguinte código:
-
-```javascript
-const express = require('express');
-const { Pool } = require('pg');
-
-const app = express();
-app.use(express.json());
-
-const pool = new Pool({
-    user: 'postgres', 
-    host: 'localhost',
-    database: 'api_teste', 
-    password: '852', 
-    port: 5432,
-});
 
 
-app.post('/users', async (req, res) => {
-    const { name, email, password } = req.body;
-    try {
-        const result = await pool.query(
-            'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id',
-            [name, email, password]
-        );
-        res.status(201).json({ id: result.rows[0].id });
-    } catch (error) {
-        console.error('Erro ao inserir usuário:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
 
 
-app.get('/users', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT * FROM users');
-        res.status(200).json(result.rows);
-    } catch (error) {
-        console.error('Erro ao buscar usuários:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
 
-
-app.get('/users/:id', async (req, res) => {
-    const { id } = req.params;
-    try {
-        const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
-        if (result.rows.length === 0) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
-        }
-        res.status(200).json(result.rows[0]);
-    } catch (error) {
-        console.error('Erro ao buscar usuário:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
-
-
-app.put('/users/:id', async (req, res) => {
-    const { id } = req.params;
-    const { name, email, password } = req.body;
-    try {
-        const result = await pool.query(
-            'UPDATE users SET name = $1, email = $2, password = $3 WHERE id = $4',
-            [name, email, password, id]
-        );
-        if (result.rowCount === 0) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
-        }
-        res.status(200).json({ message: 'Usuário atualizado com sucesso' });
-    } catch (error) {
-        console.error('Erro ao atualizar usuário:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
-
-
-app.patch('/users/:id', async (req, res) => {
-    const { id } = req.params;
-    const { name, email, password } = req.body;
-    const updates = [];
-    const values = [];
-
-    if (name) {
-        updates.push(`name = $${updates.length + 1}`);
-        values.push(name);
-    }
-    if (email) {
-        updates.push(`email = $${updates.length + 1}`);
-        values.push(email);
-    }
-    if (password) {
-        updates.push(`password = $${updates.length + 1}`);
-        values.push(password);
-    }
-
-    if (updates.length === 0) {
-        return res.status(400).json({ error: 'Nenhum campo para atualizar' });
-    }
-
-    try {
-        const result = await pool.query(
-            `UPDATE users SET ${updates.join(', ')} WHERE id = $${updates.length + 1}`,
-            [...values, id]
-        );
-        if (result.rowCount === 0) {
-            return res.status(404).json({ error: 'Usuário não encontrado' });
-        }
-        res.status(200).json({ message: 'Usuário atualizado com sucesso' });
-    } catch (error) {
-        console.error('Erro ao atualizar usuário:', error);
-        res.status(500).json({ error: 'Erro interno do servidor' });
-    }
-});
-```
-
----
-
-## Diferença entre PUT e PATCH
-
-- **PUT**: Atualiza o recurso inteiro. Se algum campo não for enviado, ele será apagado.
-
-  **Exemplo:**
-  ```http
-  PUT /users/1
-  Content-Type: application/json
-
-  {
-    "name": "João",
-    "email": "joao@email.com",
-    "password": "nova_senha"
-  }
-  ```
-
-- **PATCH**: Atualiza apenas os campos enviados. O que já existe e não for enviado permanece igual.
-
-  **Exemplo:**
-  ```http
-  PATCH /users/1
-  Content-Type: application/json
-
-  {
-    "email": "novo@email.com"
-  }
-  ```
-
----
-
-- **POST /users**  
-  Cria um novo usuário. O cliente envia os dados no corpo da requisição, e o servidor os armazena.
-
-- **GET LIST /users**  
-  Retorna uma lista de usuários. Essa requisição busca todos os usuários cadastrados no sistema.
-
-- **GET ID /users/:id**  
-  Retorna os dados de um usuário específico, identificado pelo `id` na URL.
-
-- **DELETE /users/:id**  
-  Remove um usuário específico. O servidor identifica o usuário pelo `id` e o deleta do banco de dados.
-
-- **PUT /users/:id**  
-  Atualiza completamente os dados de um usuário. O cliente precisa enviar todas as informações, pois os dados antigos serão substituídos.
-
-- **PATCH /users/:id**  
-  Atualiza parcialmente os dados do usuário. Diferente do PUT, aqui só é necessário enviar os campos que precisam ser alterados.
