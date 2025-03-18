@@ -4,7 +4,6 @@ const { Pool } = require('pg');
 const app = express();
 app.use(express.json());
 
-// Configuração do pool de conexão com o PostgreSQL
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -13,7 +12,6 @@ const pool = new Pool({
     port: 5432,
 });
 
-// Endpoint para criar um novo usuário
 app.post('/users', async (req, res) => {
     const { name, email, password } = req.body;
     const result = await pool.query(
@@ -23,13 +21,11 @@ app.post('/users', async (req, res) => {
     res.status(201).json({ id: result.rows[0].id });
 });
 
-// Endpoint para listar todos os usuários
 app.get('/users', async (req, res) => {
     const result = await pool.query('SELECT * FROM users');
     res.json(result.rows);
 });
 
-// Endpoint para obter um usuário por ID
 app.get('/users/:id', async (req, res) => {
     const { id } = req.params;
     const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
@@ -41,14 +37,12 @@ app.get('/users/:id', async (req, res) => {
     res.json(result.rows[0]);
 });
 
-// Endpoint para deletar um usuário
 app.delete('/users/:id', async (req, res) => {
     const { id } = req.params;
     await pool.query('DELETE FROM users WHERE id = $1', [id]);
     res.status(204).send();
 });
 
-// Endpoint para atualizar um usuário (PUT)
 app.put('/users/:id', async (req, res) => {
     const { id } = req.params;
     const { name, email, password } = req.body;
@@ -59,7 +53,6 @@ app.put('/users/:id', async (req, res) => {
     res.json({ message: 'User  updated' });
 });
 
-// Endpoint para atualizar parcialmente um usuário (PATCH)
 app.patch('/users/:id', async (req, res) => {
     const { id } = req.params;
     const updates = req.body;
@@ -73,7 +66,6 @@ app.patch('/users/:id', async (req, res) => {
     res.json({ message: 'User  updated' });
 });
 
-// Iniciar o servidor
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
