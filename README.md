@@ -515,8 +515,8 @@ curl -X DELETE http://localhost:3000/users/1
 
 
 
-
 # 18/03/2025
+
 
 
 
@@ -545,8 +545,47 @@ O body de uma requisição HTTP é a parte responsável por transportar os dados
 Para definir o tipo de body, é utilizado o cabeçalho `Content-Type`. Esse cabeçalho informa ao servidor o formato dos dados, para que ele possa processá-los corretamente. Ao compreender esses tipos e como manipulá-los, é possível garantir que a comunicação entre o cliente e o servidor ocorra de forma eficiente e precisa.
 
 ---
+# 20/03/2025
 
 
 
 
+
+# Hot Reload
+
+Hot Reload permite que o servidor reinicie automaticamente sempre que você fizer uma alteração no código, evitando a necessidade de reiniciar manualmente.
+
+ Primeiro, instalei o nodemon.
+
+```bash
+npm install -g nodemon
+   ```
+Agora, em vez de rodar node app.js, eu uso:
+
+```bash
+
+nodemon app.js
+```
+Assim, o servidor reinicia sozinho sempre que salvo uma alteração.
+
+Para deixar o comando mais prático, configurei o run dev no package.json:
+
+No arquivo package.json, adicionei na seção "scripts":
+
+```json
+
+"scripts": {
+  "dev": "nodemon app.js"
+}
+```
+Agora, em vez de rodar nodemon app.js, basta executar:
+
+```bash
+
+npm run dev
+```
+Isso facilita a inicialização do servidor, deixando o comando mais curto e padronizado.
+
+## Migrations
+Migrations são uma forma de versionar e gerenciar mudanças no banco de dados sem precisar alterá-lo manualmente. Cada migration representa uma modificação, como criar tabelas ou adicionar colunas, garantindo que a estrutura do banco permaneça consistente entre diferentes ambientes. Além disso, permitem reverter alterações caso necessário, tornando o processo mais seguro e organizado.
 
