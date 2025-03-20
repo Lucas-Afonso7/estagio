@@ -8,12 +8,21 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'api_teste',
-    password: '852',
+    password: '',
     port: 5432,
 });
 
 app.post('/users', async (req, res) => {
     const { name, email, password } = req.body;
+    if (!name) {
+        return res.status(400).json({ error: 'Nome é obrigatório' });
+    }
+    if (!email) {
+        return res.status(400).json({ error: 'Email é obrigatório' });
+    }
+    if (!password) {
+        return res.status(400).json({ error: 'Senha é obrigatória' });
+    }
     const result = await pool.query(
         'INSERT INTO users (name, email, password) VALUES ($1, $2, $3) RETURNING id',
         [name, email, password]
@@ -22,6 +31,12 @@ app.post('/users', async (req, res) => {
 });
 
 app.get('/users', async (req, res) => {
+    const { name } = req.query;
+    if (name) {
+        // TODO: Deixar essa query case insensitive
+        const result = await pool.query('SELECT * FROM users WHERE name LIKE $1', [`%${name}%`]);
+        return res.json(result.rows);
+    }
     const result = await pool.query('SELECT * FROM users');
     res.json(result.rows);
 });
@@ -38,6 +53,7 @@ app.get('/users/:id', async (req, res) => {
 });
 
 app.delete('/users/:id', async (req, res) => {
+    // TODO: Verificar se o usuário existe antes de deletar
     const { id } = req.params;
     await pool.query('DELETE FROM users WHERE id = $1', [id]);
     res.status(204).send();
