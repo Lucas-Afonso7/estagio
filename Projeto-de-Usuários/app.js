@@ -8,7 +8,7 @@ const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
     database: 'api_teste',
-    password: '',
+    password: '852',
     port: 5432,
 });
 
@@ -33,8 +33,8 @@ app.post('/users', async (req, res) => {
 app.get('/users', async (req, res) => {
     const { name } = req.query;
     if (name) {
-        // TODO: Deixar essa query case insensitive
-        const result = await pool.query('SELECT * FROM users WHERE name LIKE $1', [`%${name}%`]);
+        //Troquei o like por ilike
+        const result = await pool.query('SELECT * FROM users WHERE name ILIKE $1', [`%${name}%`]);
         return res.json(result.rows);
     }
     const result = await pool.query('SELECT * FROM users');
@@ -53,9 +53,17 @@ app.get('/users/:id', async (req, res) => {
 });
 
 app.delete('/users/:id', async (req, res) => {
-    // TODO: Verificar se o usuário existe antes de deletar
+    // Verificar se o usuário existe antes de deletar
     const { id } = req.params;
+    const result = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+
+    if (result.rows.length === 0) {
+        return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    // Agora sim, deletamos o usuário
     await pool.query('DELETE FROM users WHERE id = $1', [id]);
+
     res.status(204).send();
 });
 

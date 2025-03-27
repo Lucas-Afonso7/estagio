@@ -3,4 +3,8 @@ CREATE TABLE IF NOT EXISTS users (
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL
-);
+   );
+   //Adicionando 
+    ALTER TABLE users
+ADD COLUMN photo VARCHAR(255) NULL;
+

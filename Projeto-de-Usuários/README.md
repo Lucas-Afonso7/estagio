@@ -1,6 +1,8 @@
 ### TODO: criar comando de SETUP
-```
- ## Testando as rotas do projeto com CURL
+ ```bash   
+npm run setup
+ ```
+## Testando as rotas do projeto com CURL
 
 ### **Criar um usuário (POST /users)**
 
