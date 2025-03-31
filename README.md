@@ -112,7 +112,7 @@
 
   
 
-  ###  Node.JS
+  ###  Node.js
 
   O **NodeJS** é um ambiente de execução **JavaScript** que permite rodar código no servidor (**back-end**), tornando possível o uso da linguagem fora do navegador.
 
