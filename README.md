@@ -4,8 +4,8 @@
 - [Git](#Git)  
 - [Node.js](#Node.js)  
 - [HTTP  Tipos de Body](#HTTP)  
-- [Banco de dados e SQL](#Banco-de-daods-e-SQL)
-- [Arquivos e Extensões](#Arquivos-e-Extensões)  
+- [Banco de dados e SQL](#Banco-de-dados-e-SQL)
+- [Arquivos e Extensões](#Tipos-de-Arquivos-e-Extensões)  
 
 ---
   ### Criptografia
@@ -112,7 +112,7 @@
 
   
 
-  ###  NodeJS
+  ###  Node.JS
 
   O **NodeJS** é um ambiente de execução **JavaScript** que permite rodar código no servidor (**back-end**), tornando possível o uso da linguagem fora do navegador.
 
@@ -211,7 +211,8 @@
   ## String Interpolation
 
   A **interpolação de strings** permite inserir variáveis dentro de uma string de maneira mais intuitiva. Além disso, qualquer tipo de dado pode ser convertido em string automaticamente. ${}
-
+ 
+ async é usado para declarar funções assíncronas em JavaScript, permitindo o uso de await para esperar por resultados de operações como requisições sem bloquear o restante do código.
 ---
 
 # HTTP
