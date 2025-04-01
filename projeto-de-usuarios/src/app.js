@@ -1,8 +1,18 @@
 import express from 'express';
 import pg from 'pg';
+import fs from 'fs';
+import path from 'path';
+import { randomUUID } from 'crypto';
 
 const { Pool } = pg;
 const app = express();
+
+const uploadDir = path.join(__dirname, 'uploads'); 
+
+// Garantir que o diretório de uploads exista
+if (!fs.existsSync(uploadDir)) {
+    fs.mkdirSync(uploadDir);
+}
 
 app.use(express.json());
 
@@ -92,6 +102,27 @@ app.patch('/users/:id', async (req, res) => {
     res.json({ message: 'Usuário atualizado' });
 });
 
- 
+app.post('/users/:id/photo', async (req, res) => {
+    const userId = req.params.id; //Pega o ID do usuario na URL
+    const filename = randomUUID() + '.jpg'; //Gera o UUID
+
+   //O caminho onde onde o arquivo sera armazenado no sistema
+    const filePath = path.join(uploadDir, filename);
+
+    
+    fs.writeFile(filePath, content, (err) => {
+        if (err) {
+          console.error('Erro ao criar o arquivo:', err);
+        }
+        console.log('Arquivo criado com sucesso!');
+      });
+
+})
+
+app.get('/users/:id/photo', async (req, res) => {
+    const userId = req.params.id;
+    const result = await pool.query('SELECT photo FROM users WHERE id = $1', [userId]); // Consulta o banco de dados
+
+}) 
 
 export default app

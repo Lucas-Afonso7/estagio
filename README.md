@@ -1,19 +1,18 @@
-
-
-- [Criptografia](#Criptografia)  
-- [Git](#Git)  
-- [Node.js](#Node.js)  
-- [HTTP  Tipos de Body](#HTTP)  
-- [Banco de dados e SQL](#Banco-de-dados-e-SQL)
-- [Arquivos e Extensões](#Tipos-de-Arquivos-e-Extensões)  
+- [Criptografia](material_de_estudo/Criptografia.md)  
+- [Git](material_de_estudo/Git.md)  
+- [Node.js](material_de_estudo/Node_js.md)  
+- [HTTP Tipos de Body](material_de_estudo/HTTP.md)  
+- [Banco de dados e SQL](material_de_estudo/Banco-de-dados-e-SQL.md)
+- [Arquivos e Extensões](material_de_estudo/Tipos-de-Arquivos-e-Extensões.md)  
 
 ---
-  ### Criptografia
+
+### Criptografia
   Criptografia é um método de proteger informações, tornando-as legíveis apenas para quem tem a chave correta para decodificá-las. Ela é usada para proteger mensagens, arquivos, bancos de dados e diversas formas de comunicação digital.
 
-  ###  Como funciona a criptografia simétrica e assimétrica?
+###  Como funciona a criptografia simétrica e assimétrica?
 
-  #### 🔹 Criptografia Simétrica
+#### 🔹 Criptografia Simétrica
   Utiliza uma única chave para criptografar e descriptografar os dados. É mais rápida, mas menos segura, pois a mesma chave precisa ser compartilhada entre remetente e destinatário, aumentando o risco de interceptação.
 
   **Principais algoritmos:**
@@ -26,7 +25,7 @@
   - Criptografia de arquivos e discos (**BitLocker**, **VeraCrypt**).
   - Segurança em redes Wi-Fi (**WPA2 usa AES**).
 
-  #### 🔹 Criptografia Assimétrica
+#### 🔹 Criptografia Assimétrica
   Utiliza um par de chaves: uma pública (compartilhada) e uma privada (secreta). Esse método é mais seguro, pois a chave privada nunca é exposta.
 
   **Principais algoritmos:**
@@ -39,7 +38,7 @@
   - **E-mails criptografados** - Usado em PGP e S/MIME.
   - **Assinaturas digitais** - Garante autenticidade de documentos.
 
-  ###  O que é uma chave SSH? Como funciona esse protocolo? 
+###  O que é uma chave SSH? Como funciona esse protocolo? 
 
   Uma chave SSH é um método seguro de autenticação que substitui senhas, utilizando criptografia assimétrica para permitir conexões remotas confiáveis e protegidas.
 
@@ -47,18 +46,18 @@
   - **Chave pública** - Armazenada no servidor remoto.
   - **Chave privada** - Mantida em segredo pelo usuário.
 
-  ###  **Como funciona o SSH?**
+###  **Como funciona o SSH?**
   1. O usuário tenta se conectar a um servidor SSH.
   2. O servidor verifica se a chave pública cadastrada corresponde à chave privada do usuário.
   3. Se houver correspondência, o acesso é concedido **sem necessidade de senha**.
 
-  ###  **Principais usos do SSH:**
+###  **Principais usos do SSH:**
   - Acesso remoto seguro a servidores.
   - Transferência de arquivos (SCP e SFTP).
   - Automação de deploys e administração de sistemas.
 
 
-  ###  **Como gerar uma chave SSH?**
+###  **Como gerar uma chave SSH?**
   Para gerar a chave SSH, use o seguinte comando:  
   ```bash
   ssh-keygen -t ed25519 -C "seu_email@example.com"
@@ -71,15 +70,15 @@
   ---
 
 
-  ### Git
+### Git
   O **Git** é um sistema de controle de versão distribuído, permitindo que múltiplas pessoas trabalhem no mesmo projeto ao mesmo tempo e acompanhem o histórico de mudanças. Ele pode ser usado via **GitHub** ou pelo terminal.
 
   **Criado em:** 2005 por **Linus Torvalds**, o mesmo criador do **Linux**. Ele desenvolveu o Git após um desacordo com os donos do **BitKeeper**, um sistema de versionamento utilizado anteriormente.
 
-  ###  O que é GITHUB?
+###  O que é GITHUB?
   O **GitHub** é uma plataforma que hospeda repositórios Git, facilitando a colaboração, versionamento de código e gerenciamento de projetos.
 
-  ###  Como adicionar uma chave SSH ao GITHUB?
+###  Como adicionar uma chave SSH ao GITHUB?
   ```bash
   eval "$(ssh-agent -s)"
   ssh-add ~/.ssh/id_ed25519
@@ -107,6 +106,9 @@
   | `git reset --hard` | Reseta o repositório para um commit específico, descartando alterações. |
   | `git reset --soft` | Reseta o repositório para um commit específico, mantendo as alterações no staging. |
 
+  https://anvilproject.org/guides/content/creating-links
+
+  commit --ammend
   ---
 
 
