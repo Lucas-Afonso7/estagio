@@ -1,13 +1,17 @@
 import express from 'express';
 import pg from 'pg';
 import fs from 'fs';
+import { fileURLToPath } from 'url';
 import path from 'path';
 import { randomUUID } from 'crypto';
+import fileUpload from 'express-fileupload';
 
 const { Pool } = pg;
 const app = express();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const uploadDir = path.join(__dirname, 'uploads'); 
+const uploadDir = path.join(__dirname, 'uploads'); // Caminho absoluto
 
 // Garantir que o diretório de uploads exista
 if (!fs.existsSync(uploadDir)) {
@@ -102,27 +106,38 @@ app.patch('/users/:id', async (req, res) => {
     res.json({ message: 'Usuário atualizado' });
 });
 
-app.post('/users/:id/photo', async (req, res) => {
-    const userId = req.params.id; //Pega o ID do usuario na URL
-    const filename = randomUUID() + '.jpg'; //Gera o UUID
+    app.use(fileUpload());
 
-   //O caminho onde onde o arquivo sera armazenado no sistema
-    const filePath = path.join(uploadDir, filename);
+app.post('/users/:id/photo', (req, res) => {
+     const userId = req.params.id; // Pega o ID do usuário na URL
+     const filename = randomUUID() + '.jpg'; // Gera um nome único para o arquivo
 
-    
-    fs.writeFile(filePath, content, (err) => {
+         // Verifica se o arquivo foi enviado
+    if (!req.files) {
+      return res.status(400).json({ error: 'Nenhuma imagem foi enviada' });
+    }
+
+    const photo = req.files.photo; // Obtém o arquivo
+
+        // Caminho onde o arquivo será salvo no sistema
+     const filePath = path.join(uploadDir, filename);
+
+
+         // Salva a imagem no servidor
+     photo.mv(filePath, async (err) => {
         if (err) {
-          console.error('Erro ao criar o arquivo:', err);
-        }
-        console.log('Arquivo criado com sucesso!');
-      });
+         console.error('Erro ao criar o arquivo:', err);
+            return;
+          }
+           console.log('Arquivo criado com sucesso!');
+           
+           await pool.query('UPDATE users SET photo = $1 WHERE id = $2', [filename, userId]);
+        });
+        });
 
-})
 
-app.get('/users/:id/photo', async (req, res) => {
-    const userId = req.params.id;
-    const result = await pool.query('SELECT photo FROM users WHERE id = $1', [userId]); // Consulta o banco de dados
+   
 
-}) 
+ 
 
 export default app
