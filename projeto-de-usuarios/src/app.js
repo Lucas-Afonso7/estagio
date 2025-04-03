@@ -106,38 +106,54 @@ app.patch('/users/:id', async (req, res) => {
     res.json({ message: 'Usuário atualizado' });
 });
 
-    app.use(fileUpload());
+app.use(fileUpload());
 
 app.post('/users/:id/photo', (req, res) => {
-     const userId = req.params.id; // Pega o ID do usuário na URL
-     const filename = randomUUID() + '.jpg'; // Gera um nome único para o arquivo
+    const userId = req.params.id; // Pega o ID do usuário na URL
+    const filename = randomUUID() + '.jpg'; // Gera um nome único para o arquivo
 
-         // Verifica se o arquivo foi enviado
+    // Verifica se um arquivo foi enviado 
     if (!req.files) {
-      return res.status(400).json({ error: 'Nenhuma imagem foi enviada' });
+        return res.status(400).json({ error: 'Nenhuma imagem foi enviada' });
     }
 
-    const photo = req.files.photo; // Obtém o arquivo
+    const photo = req.files.photo; // Obtém o arquivo enviado
+    const filePath = path.join(uploadDir, filename); // Define o caminho onde o arquivo será salvo
 
-        // Caminho onde o arquivo será salvo no sistema
-     const filePath = path.join(uploadDir, filename);
-
-
-         // Salva a imagem no servidor
-     photo.mv(filePath, async (err) => {
+    // Salva a imagem no servidor
+    photo.mv(filePath, async (err) => {
         if (err) {
-         console.error('Erro ao criar o arquivo:', err);
+            console.error('Erro ao criar o arquivo:', err);
             return;
-          }
-           console.log('Arquivo criado com sucesso!');
-           
-           await pool.query('UPDATE users SET photo = $1 WHERE id = $2', [filename, userId]);
-        });
-        });
+        }
+        console.log('Arquivo criado com sucesso!');
+        
+        // Atualiza o nome da foto no banco de dados
+        await pool.query('UPDATE users SET photo = $1 WHERE id = $2', [filename, userId]);
+    });
+});
 
+app.get('/users/:id/photo', async (req, res) => {
+    const userId = req.params.id; // Obtém o ID do usuário
+    
+    // Busca a foto do usuário no banco de dados
+    const result = await pool.query("SELECT photo FROM users WHERE id = $1", [userId]);
+    
+    // Verifica se o usuário existe e se há uma foto cadastrada
+    if (!result.rows[0].photo) {
+        return res.status(404).json({ error: "Foto não encontrada" });
+    }
 
-   
+    const photoFilename = result.rows[0].photo; // Obtém o nome do arquivo da foto
+    const photoPath = path.join(uploadDir, photoFilename); // Caminho completo da foto
 
- 
+    // Verifica se o arquivo realmente existe no servidor
+    if (!fs.existsSync(photoPath)) {
+        return res.status(404).json({ error: "Arquivo da foto não encontrado" });
+    }
 
+    // Envia o arquivo da foto como resposta
+    res.sendFile(photoPath);
+});
+        
 export default app
