@@ -49,12 +49,11 @@ curl -X DELETE http://localhost:3000/users/123
 ### Upload de foto de usuário (POST /users/:id/photo)
 
 ```bash
-curl -X POST http://localhost:3000/users/123/photo \
-  -F "photo=@/caminho/para/sua/foto.jpg"
+curl -X POST -F "photo=@foto.jpg" http://localhost:3000/users/1/photo
+
 ```
-
-###  Recuperar a foto de um usuário (GET /users/:id/photo)
-
+### Baixar a foto do usuario (GET /users/:id/photo)
 ```bash
-curl -X GET http://localhost:3000/users/123/photo
+curl -o foto_baixada.jpg http://localhost:3000/users/1/photo
 ```
+
