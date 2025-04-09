@@ -1,19 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Usuários Cadastrados</title>
-    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
-    <link rel="stylesheet" href="/style.css">
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usuários</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
-    <h1>Lista de usuários e e-mails</h1>
-<ul>
+  <h1>Lista de usuários</h1>
+
   <% users.forEach(user => { %>
-    <li><strong><%= user.name %></strong> - <%= user.email %> </li>
+    <div class="usuario">
+      <p><strong>Nome:</strong> <%= user.name %></p>
+      <p><strong>Email:</strong> <%= user.email %></p>
+      <button onclick="deletarUsuario('<%= user.id %>')">Deletar</button>
+    </div>
   <% }) %>
-</ul>
+
+  <script>
+    async function deletarUsuario(id) {
+      const resposta = await fetch(`/users/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (resposta.status === 204) {
+        location.reload();
+      } 
+    }
+  </script>
 </body>
 </html>
