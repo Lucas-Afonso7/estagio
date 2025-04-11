@@ -12,6 +12,9 @@
 
   <% users.forEach(user => { %>
     <div class="usuario">
+      <img 
+      src="<%= user.avatarUrl || 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
+    
       <p><strong>Nome:</strong> <%= user.name %></p>
       <p><strong>Email:</strong> <%= user.email %></p>
 
@@ -20,7 +23,7 @@
       <button onclick="alterarSenha('<%= user.id %>')">Alterar senha</button>
     </div>
   <% }) %>
-
+  <a href="/criar-usuario" class="voltar">Novo cadastro</a>
 
   <script>
     async function deletarUsuario(id) {
