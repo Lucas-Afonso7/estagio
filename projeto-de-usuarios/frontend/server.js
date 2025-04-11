@@ -73,6 +73,29 @@ app.patch("/editar-usuario/:id", async (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/editar-senha/:id", async (req, res) => {
+  const { id } = req.params;
+
+  const resposta = await fetch(`http://localhost:3000/users/${id}`);
+  const usuario = await resposta.json();
+
+  res.render("form-senha", { usuario });
+});
+
+
+app.patch("/editar-senha/:id", async (req, res) => {
+  const { id } = req.params;
+  const { password } = req.body;
+
+  const resposta = await fetch(`http://localhost:3000/users/${id}`, {
+    method: "PATCH",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ password }),
+  });
+
+  res.sendStatus(resposta.status);
+});
+
 app.listen(4000, () => {
   console.log("Front-end rodando em http://localhost:4000");
 });

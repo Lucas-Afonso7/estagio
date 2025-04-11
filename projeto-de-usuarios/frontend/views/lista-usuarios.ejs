@@ -17,6 +17,7 @@
 
       <button onclick="deletarUsuario('<%= user.id %>')">Deletar</button>
       <button onclick="editarUsuario('<%= user.id %>')">Atualizar nome</button>
+      <button onclick="alterarSenha('<%= user.id %>')">Alterar senha</button>
     </div>
   <% }) %>
 
@@ -35,6 +36,11 @@
     function editarUsuario(id) {
       window.location.href = `/editar-nome/${id}`;
     }
+
+    function alterarSenha(id) {
+    window.location.href = `/editar-senha/${id}`;
+  }
+
   </script>
 </body>
 </html>
