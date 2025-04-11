@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title><%= usuario ? "Editar Nome" : "Cadastrar Novo Usuário" %></title>
+  <link rel="stylesheet" href="/css/formulario.css">
+  <link rel="stylesheet" href="/css/style2.css">
+</head>
+<body>
+
+<% if (usuario) { %>
+  <h1>Editar nome do usuário</h1>
+
+  <form id="formUsuario">
+    <input type="hidden" name="id" value="<%= usuario.id %>">
+
+    <label for="name">Nome:</label>
+    <input type="text" id="name" name="name" value="<%= usuario.name %>" required>
+    <br>
+
+    <button type="submit">Atualizar nome</button>
+  </form>
+
+  <% } else { %>
+    <h1>Cadastrar novo usuário</h1>
+  
+    <form action="/novo-usuario" method="POST">
+      <label for="name">Nome:</label>
+      <input type="text" id="name" name="name" required>
+      <br>
+  
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+      <br>
+  
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" required>
+      <br>
+  
+      <button type="submit">Cadastrar</button>
+    </form>
+  <% } %>
+  
+  <script>
+    const form = document.getElementById("formUsuario");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      await fetch(`http://localhost:4000/editar-usuario/${data.id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: data.name }),
+      });
+
+      window.location.href = "/Lista-de-usuarios";
+    });
+  </script>
+
+
+</body>
+</html>
