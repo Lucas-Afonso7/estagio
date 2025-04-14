@@ -8,7 +8,11 @@
   <link rel="stylesheet" href="/css/style2.css">
 </head>
 <body>
-
+    <nav class="navbar">
+      <a href="/criar-usuario">Criar Usuário</a>
+      <a href="/Lista-de-usuarios">Lista de Usuários</a>
+    </nav>
+  
 <% if (usuario) { %>
   <h1>Editar nome do usuário</h1>
 
@@ -41,7 +45,7 @@
       <button type="submit">Cadastrar</button>
     </form>
   <% } %>
-  
+
   <script>
     const form = document.getElementById("formUsuario");
 
@@ -60,7 +64,6 @@
       window.location.href = "/Lista-de-usuarios";
     });
   </script>
-
 
 </body>
 </html>

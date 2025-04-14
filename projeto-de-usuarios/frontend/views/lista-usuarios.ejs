@@ -5,32 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lista de Usuários</title>
   <link rel="stylesheet" href="/css/lista.css">
-  <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
+  <nav class="navbar">
+    <a href="/criar-usuario">Criar Usuário</a>
+    <a href="/Lista-de-usuarios">Lista de Usuários</a>
+  </nav> 
+
   <h1>Lista de usuários</h1>
 
-  <% users.forEach(user => { %>
-    <div class="usuario">
-      <img 
-      src="<%= user.avatarUrl || 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
-    
-      <p><strong>Nome:</strong> <%= user.name %></p>
-      <p><strong>Email:</strong> <%= user.email %></p>
-
-      <button onclick="deletarUsuario('<%= user.id %>')">Deletar</button>
-      <button onclick="editarUsuario('<%= user.id %>')">Atualizar nome</button>
-      <button onclick="alterarSenha('<%= user.id %>')">Alterar senha</button>
-    </div>
-  <% }) %>
-  <a href="/criar-usuario" class="voltar">Novo cadastro</a>
+  <div id="usuarios-lista">
+    <% users.forEach(user => { %>
+      <div class="usuario">
+        <img src="<%= user.avatarUrl || 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
+        <p class="nome"><strong>Nome:</strong> <%= user.name %></p>
+        <p><strong>Email:</strong> <%= user.email %></p>
+        <button onclick="deletarUsuario('<%= user.id %>')">Deletar</button>
+        <button onclick="editarUsuario('<%= user.id %>')">Atualizar nome</button>
+        <button onclick="alterarSenha('<%= user.id %>')">Alterar senha</button>
+      </div>
+    <% }) %>
+  </div>
 
   <script>
     async function deletarUsuario(id) {
       const resposta = await fetch(`/users/${id}`, {
         method: 'DELETE'
       });
-
       if (resposta.status === 204) {
         location.reload();
       } 
@@ -41,9 +42,9 @@
     }
 
     function alterarSenha(id) {
-    window.location.href = `/editar-senha/${id}`;
-  }
-
+      window.location.href = `/editar-senha/${id}`;
+    }
   </script>
+
 </body>
 </html>
