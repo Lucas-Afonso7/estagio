@@ -1,11 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title><%= usuario ? "Editar Nome" : "Cadastrar Novo Usuário" %></title>
   <link rel="stylesheet" href="/css/formulario.css">
-  <link rel="stylesheet" href="/css/style2.css">
 </head>
 <body>
     <nav class="navbar">
@@ -25,6 +24,12 @@
 
     <button type="submit">Atualizar nome</button>
   </form>
+
+  <br>
+    <form id="formFoto" action="http://localhost:3000/users/<%= usuario.id %>/photo" method="POST" enctype="multipart/form-data">
+      <input type="file" name="photo" required>
+      <button type="submit">Enviar Foto</button>
+    </form>
 
   <% } else { %>
     <h1>Cadastrar novo usuário</h1>
@@ -47,12 +52,13 @@
   <% } %>
 
   <script>
-    const form = document.getElementById("formUsuario");
+    const formUsuario = document.getElementById("formUsuario");
+    const formFoto = document.getElementById("formFoto");
 
-    form.addEventListener("submit", async (e) => {
+    formUsuario.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      const formData = new FormData(form);
+      const formData = new FormData(formUsuario);
       const data = Object.fromEntries(formData.entries());
 
       await fetch(`http://localhost:4000/editar-usuario/${data.id}`, {
@@ -63,6 +69,20 @@
 
       window.location.href = "/Lista-de-usuarios";
     });
+
+    formFoto.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(formFoto);
+    const response = await fetch(formFoto.action, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (response.ok) {
+      window.location.href = "/Lista-de-usuarios";
+    }
+  });
   </script>
 
 </body>

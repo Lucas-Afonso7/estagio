@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import pg from 'pg';
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -17,7 +18,10 @@ const uploadDir = path.join(__dirname, 'uploads'); // Caminho absoluto
 if (!fs.existsSync(uploadDir)) {
     fs.mkdirSync(uploadDir);
 }
-+
+
+app.use(cors({
+    origin: 'http://localhost:4000',
+}));
 app.use(express.json());
 
 const pool = new Pool({
@@ -127,6 +131,8 @@ app.post('/users/:id/photo', (req, res) => {
         console.log('Arquivo criado com sucesso!');
         
         await pool.query('UPDATE users SET photo = $1 WHERE id = $2', [filename, userId]);
+
+        res.json({ message: 'Foto enviada com sucesso' });
     });
 });
 

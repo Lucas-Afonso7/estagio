@@ -17,16 +17,17 @@
   <div id="usuarios-lista">
     <% users.forEach(user => { %>
       <div class="usuario">
-        <img src="<%= user.avatarUrl || 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
+        <img src="<%= user.photo ? 'http://localhost:3000/users/' + user.id + '/photo' : 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
         <p class="nome"><strong>Nome:</strong> <%= user.name %></p>
         <p><strong>Email:</strong> <%= user.email %></p>
         <button onclick="deletarUsuario('<%= user.id %>')">Deletar</button>
-        <button onclick="editarUsuario('<%= user.id %>')">Atualizar nome</button>
+        <button onclick="editarUsuario('<%= user.id %>')">Alterar nome e imagem<button>
         <button onclick="alterarSenha('<%= user.id %>')">Alterar senha</button>
       </div>
     <% }) %>
   </div>
-
+  
+  </div>
   <script>
     async function deletarUsuario(id) {
       const resposta = await fetch(`/users/${id}`, {
