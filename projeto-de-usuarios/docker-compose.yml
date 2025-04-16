@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "3000:3000"
+    container_name: api
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "4000:4000"
+    container_name: web
+
+  database:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=852
+    ports:
+      - "5432:5432"
+    volumes:
+    - ./backend:/docker-entrypoint-initdb.d
+
+  
