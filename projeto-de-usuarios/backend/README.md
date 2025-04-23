@@ -1,9 +1,9 @@
 ### Comando para iniciar o servidor
 ```bash
-npm run dev
+docker-compose up --build
 ```
 ### Link para abrir a lista de usuários no navegador:
-http://localhost:3000/Lista-de-usuarios
+http://localhost:4000/Lista-de-usuarios
 
 ---
 # Testes com CURL para o Projeto de Usuários
