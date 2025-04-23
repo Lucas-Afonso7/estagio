@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.get("/Lista-de-usuarios", async (req, res) => {
-  const response = await fetch("http://localhost:3000/users");
+  const response = await fetch("http://backend:3000/users");
   const users = await response.json();
   res.render("lista-usuarios", { users });
 });
@@ -31,7 +31,7 @@ app.get("/criar-usuario", (req, res) => {
 app.post("/novo-usuario", async (req, res) => {
   const { name, email, password } = req.body;
 
-  await fetch("http://localhost:3000/users", {
+  await fetch("http://backend:3000/users", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name, email, password }),
@@ -43,7 +43,7 @@ app.post("/novo-usuario", async (req, res) => {
 app.delete('/users/:id', async (req, res) => {
   const { id } = req.params;
 
-  const resposta = await fetch(`http://localhost:3000/users/${id}`, {
+  const resposta = await fetch(`http://backend:3000/users/${id}`, {
     method: 'DELETE'
   });
 
@@ -53,7 +53,7 @@ app.delete('/users/:id', async (req, res) => {
 app.get("/editar-nome/:id", async (req, res) => {
   const { id } = req.params;
 
-    const resposta = await fetch(`http://localhost:3000/users/${id}`);
+    const resposta = await fetch(`http://backend:3000/users/${id}`);
     const usuario = await resposta.json();
 
     res.render("form-usuario", { usuario });
@@ -64,7 +64,7 @@ app.patch("/editar-usuario/:id", async (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 
-  await fetch(`http://localhost:3000/users/${id}`, {
+  await fetch(`http://backend:3000/users/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ name }),
@@ -76,7 +76,7 @@ app.patch("/editar-usuario/:id", async (req, res) => {
 app.get("/editar-senha/:id", async (req, res) => {
   const { id } = req.params;
 
-  const resposta = await fetch(`http://localhost:3000/users/${id}`);
+  const resposta = await fetch(`http://backend:3000/users/${id}`);
   const usuario = await resposta.json();
 
   res.render("form-senha", { usuario });
@@ -87,7 +87,7 @@ app.patch("/editar-senha/:id", async (req, res) => {
   const { id } = req.params;
   const { password } = req.body;
 
-  const resposta = await fetch(`http://localhost:3000/users/${id}`, {
+  const resposta = await fetch(`http://backend:3000/users/${id}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ password }),
