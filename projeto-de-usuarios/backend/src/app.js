@@ -1,3 +1,4 @@
+import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import pg from 'pg';
@@ -11,7 +12,6 @@ const { Pool } = pg;
 const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const uploadDir = path.join(__dirname, 'uploads'); // Caminho absoluto
 
 // Garantir que o diretório de uploads exista
@@ -24,14 +24,27 @@ app.use(cors({
 }));
 app.use(express.json());
 
-const pool = new Pool({
-    user: 'postgres',
-    host: 'database',
-    database: 'api_teste',
-    password: '852',
-    port: 5432,
-});
+const envPath = path.resolve(__dirname, '../.env');
 
+console.log('Caminho do arquivo .env:', envPath); 
+
+const result = dotenv.config({ path: envPath });
+
+if (result.error) {
+    console.error('Erro ao carregar o arquivo .env:', result.error);
+} else {
+    console.log('Arquivo .env carregado');
+}
+
+const pool = new Pool({
+    host: process.env.PG_HOST,
+    port: Number(process.env.PG_PORT),
+    user: process.env.PG_USER,
+    password: process.env.PG_PASSWORD,
+    database: process.env.PG_DATABASE,
+})
+
+  
 app.post('/users', async (req, res) => {
     const { name, email, password } = req.body;
     if (!name) {
