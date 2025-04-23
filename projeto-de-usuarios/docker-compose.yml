@@ -1,25 +1,43 @@
-version: '3'
+version: '3.8'
 
 services:
-  backend:
-    build: ./backend
-    ports:
-      - "3000:3000"
-    container_name: api
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "4000:4000"
-    container_name: web
-
-  database:
+  db:
     image: postgres
-    environment:
-      - POSTGRES_PASSWORD=852
+    container_name: db
     ports:
       - "5432:5432"
+    networks:
+      - projeto_de_usuarios_network
+    environment:
+      - POSTGRES_PASSWORD=852
     volumes:
-    - ./backend:/docker-entrypoint-initdb.d
+      - projeto_de_usuarios_postgres_data:/var/lib/postgresql/data
 
-  
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: backend
+    ports:
+      - "3000:3000"
+    networks:
+      - projeto_de_usuarios_network
+    depends_on:
+      - db
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    ports:
+      - "4000:4000"
+    networks:
+      - projeto_de_usuarios_network
+
+networks:
+  projeto_de_usuarios_network:
+    driver: bridge
+
+volumes:
+  projeto_de_usuarios_postgres_data:

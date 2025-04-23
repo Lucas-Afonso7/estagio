@@ -17,7 +17,7 @@
   <div id="usuarios-lista">
     <% users.forEach(user => { %>
       <div class="usuario">
-        <img src="<%= user.photo ? 'http://localhost:3000/users/' + user.id + '/photo' : 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
+        <img src="<%= user.photo ? 'http://backend:3000/users/' + user.id + '/photo' : 'https://www.gravatar.com/avatar/?d=mp' %>" alt="Avatar de <%= user.name %>" class="avatar">
         <p class="nome"><strong>Nome:</strong> <%= user.name %></p>
         <p><strong>Email:</strong> <%= user.email %></p>
         <button onclick="deletarUsuario('<%= user.id %>')">Deletar</button>

@@ -26,7 +26,7 @@
   </form>
 
   <br>
-    <form id="formFoto" action="http://localhost:3000/users/<%= usuario.id %>/photo" method="POST" enctype="multipart/form-data">
+    <form id="formFoto" action="http://backend:3000/users/<%= usuario.id %>/photo" method="POST" enctype="multipart/form-data">
       <input type="file" name="photo" required>
       <button type="submit">Enviar Foto</button>
     </form>

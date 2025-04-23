@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #fafafa;
+  background-color: #cccccc;
   padding: 20px;
   }
   
@@ -36,3 +36,22 @@ button {
   border: none;
   cursor: pointer;
   }
+.navbar {
+  background: #f9f9f9;
+  padding: 12px 20px;
+  border-radius: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+  
+.navbar a {
+  padding: 8px 14px;
+  border-radius: 6px;
+  color: #0077cc;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.2s;
+}
+  
