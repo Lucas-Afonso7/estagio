@@ -152,3 +152,5 @@ fs.writeFile(filePath, content, (err) => {
 Ler arquivo: fs.readFile()
 
 Criar arquivo: fs.writeFile()
+
+
