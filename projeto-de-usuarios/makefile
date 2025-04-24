@@ -1,3 +1,3 @@
 migrate:
-	docker cp backend/migrations.sql 950c588d501c_db:/migrations.sql
-	docker exec -i 950c588d501c_db psql -U postgres -d postgres -f /migrations.sql
+	docker cp backend/migrations.sql db:/migrations.sql
+	docker exec -i db psql -U postgres -d api_teste -f /migrations.sql
