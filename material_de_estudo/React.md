@@ -4,7 +4,7 @@ React é uma biblioteca JavaScript que é usada para criar interfaces de usuári
 
 No React, se usa uma sintaxe chamada JSX, que mistura HTML com JavaScript, para criar os componentes da tela de forma mais intuitiva.
 
-### Alguns conceitos importantes:
+### Alguns conceitos importantes
 
 Componentes: são pedaços da interface que podem ser reaproveitados em vários lugares.
 
@@ -14,7 +14,11 @@ Props: são as propriedades que a gente passa de um componente para outro.
 
 Ciclo de Vida: são fases pelas quais o componente passa (montagem, atualização e desmontagem).
 
----
+A condicional **{!id && (...)}** é usada para exibir os campos de email e senha apenas quando o usuário está criando um novo cadastro. Se um usuário existente estiver sendo editado (ou seja, quando id está presente), esses campos não são exibidos para evitar alterações indesejadas nas informações sensíveis
+
+Se a expressão antes do && (no caso, !id) for verdadeira, o que está depois do && será renderizado.
+
+Se a expressão antes do && for falsa, nada será renderizado.
 
 ### Tailwind CSS
 
@@ -22,7 +26,7 @@ O Tailwind CSS é um framework de CSS que ajuda a criar interfaces mais rápido 
 
 Com o Tailwind, dá para estilizar as coisas sem sair do arquivo onde está o seu componente, o que agiliza bastante o desenvolvimento.
 
-### Como funciona:
+### Como funciona
 
 Ele já vem com várias classes para coisas como espaçamento, cor, borda, tipografia, etc.
 
