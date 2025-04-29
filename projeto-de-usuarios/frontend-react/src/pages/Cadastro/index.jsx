@@ -16,19 +16,21 @@ function Cadastro() {
       body: JSON.stringify({ name, email, password }),
     });
   };
+
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center min-h-screen bg-gray-900">
       <form
         onSubmit={enviar}
-        className="flex flex-col gap-[30px] p-[30px] rounded-[30px] bg-[#2e2d4e] w-[400px] mb-[20px]"
+        className="flex flex-col gap-6 p-12 rounded-2xl bg-gray-800 w-[28rem] shadow-lg"
       >
-        <h1 className="text-amber-50 text-2xl text-center">
-          Cadastro de usuarios
+        <h1 className="text-white text-2xl text-center font-semibold">
+          Cadastro de Usuários
         </h1>
+
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="border border-[#48456c] rounded-4xl h-9/10 bg-[#363653] text-white text-base p1-[10] "
+          className="border border-gray-600 rounded-lg h-12 bg-gray-700 text-white text-base px-4"
           placeholder="Nome"
           name="nome"
           type="text"
@@ -36,7 +38,7 @@ function Cadastro() {
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="border border-[#48456c] rounded-4xl h-9/10 bg-[#363653] text-white text-base p1-[10] "
+          className="border border-gray-600 rounded-lg h-12 bg-gray-700 text-white text-base px-4"
           placeholder="Email"
           name="email"
           type="email"
@@ -44,13 +46,13 @@ function Cadastro() {
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="border border-[#48456c] rounded-4xl h-9/10 bg-[#363653] text-white text-base p1-[10] "
+          className="border border-gray-600 rounded-lg h-12 bg-gray-700 text-white text-base px-4"
           placeholder="Senha"
           name="senha"
           type="password"
         />
         <button
-          className="rounded-4xl bg-[#8b8ae1] h-8  font-bold cursor-pointer"
+          className="rounded-lg bg-indigo-600 hover:bg-indigo-500 h-12 text-white font-bold transition"
           type="submit"
         >
           Cadastrar
