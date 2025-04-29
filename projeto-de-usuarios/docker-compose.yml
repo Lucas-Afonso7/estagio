@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 
 services:
   db:
@@ -32,6 +32,17 @@ services:
     container_name: frontend
     ports:
       - "4000:4000"
+    networks:
+      - projeto_de_usuarios_network
+
+  frontend-react:
+    build: ./frontend-react
+    ports:
+      - "5173:5173"
+    working_dir: /app
+    volumes:
+      - ./frontend-react:/app
+    command: npm run dev -- --host
     networks:
       - projeto_de_usuarios_network
 
