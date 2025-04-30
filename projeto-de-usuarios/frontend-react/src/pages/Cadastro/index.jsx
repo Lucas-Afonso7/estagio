@@ -49,10 +49,10 @@ function Cadastro() {
   }
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100">
       <form
         onSubmit={enviar}
-        className="flex flex-col gap-6 p-12 rounded-2xl bg-gray-800 w-96 shadow-lg">
+        className="flex flex-col gap-6 px-12 py-20 rounded-2xl bg-gray-800 w-96 shadow-lg">
         <h1 className="text-white text-2xl text-center font-semibold">
           {id ? "Editar Usuário" : "Cadastro de Usuário"}
         </h1>
@@ -94,7 +94,7 @@ function Cadastro() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-white h-12 rounded-lg mt-6">
+          className="bg-purple-600 text-white h-12 rounded-lg mt-6 hover:bg-purple-700">
           {id ? "Salvar alterações" : "Cadastrar"}
         </button>
       </form>

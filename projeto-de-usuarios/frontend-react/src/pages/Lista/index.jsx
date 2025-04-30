@@ -41,7 +41,7 @@ function Lista() {
       </h1>
 
       <div>
-        <table className="min-w-full bg-white border border-gray-200 rounded shadow">
+        <table className="min-w-full bg-gray-100 border border-gray-200 rounded shadow">
           <thead>
             <tr className="bg-gray-100 text-left">
               <th className="py-2 px-4">Foto</th>

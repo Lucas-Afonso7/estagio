@@ -21,7 +21,7 @@ function EditarSenha() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-white">
+    <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-gray-800 flex justify-center items-center flex-col gap-6 p-12 rounded-2xl w-96 shadow-lg">
         <h1 className="text-2xl font-semibold text-center text-white">
           Alterar Senha
